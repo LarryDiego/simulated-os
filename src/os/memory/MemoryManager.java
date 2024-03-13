@@ -8,9 +8,9 @@ public class MemoryManager {
 	private String[] logicalMemory;
 	
 	public MemoryManager(Strategy strategy) {
-		//this.physicalMemory = new String[128];
+		this.physicalMemory = new String[128];
 		//Test line
-		this.physicalMemory = new String[10];
+		//this.physicalMemory = new String[4];
 		this.strategy = strategy;		
 	}
 	
@@ -36,6 +36,7 @@ public class MemoryManager {
         System.out.println("                  (-) REMOVING THE MEMORY PROCESS (-)");
         System.out.println("PROCESS ID: " + p.getId() + " REMOVED!\nPAGES/SIZE IN MEMORY: " + p.getSizeInMemory() + "\nRELEASED PAGES/INDEXES: " + p.getMa().getStart() + " - " + p.getMa().getEnd());
         System.out.println("--------------------------------------------------------------------------\n");
+        this.memoryInUse();
     }
 	
 	private void writeWithFirstFit(Process p) {
@@ -80,43 +81,32 @@ public class MemoryManager {
         }			
 	}
 	
-	private MemoryAddress bestFitMethod(int sizeInMemory) {
-        int smallMemoryLength = 0;
-        int bigMemoryLength = 0;
-        boolean smallMemoryFits = false;
-        boolean bigMemoryFits = false;
-        MemoryAddress smallMemory = new MemoryAddress(0, 0);
-        MemoryAddress bigMemory = new MemoryAddress(0, 0);
-        int actualSize = 0;
+	private MemoryAddress bestFitMethod(int size) {
+        int start = -1;
+        int small = this.physicalMemory.length + 1;
+
+        MemoryAddress memory = null;
 
         for (int i = 0; i < this.physicalMemory.length; i++) {
-            String element = this.physicalMemory[i];
+            int j = i;
 
-            if (element == null) {
-            	actualSize++;
+            while (j < this.physicalMemory.length && this.physicalMemory[j] == null) {
+                j++;
+            }
 
-                if (actualSize >= sizeInMemory && actualSize > bigMemoryLength) {
-                	bigMemory.setStart(i - actualSize + 1);
-                	bigMemory.setEnd(bigMemory.getStart() + sizeInMemory - 1);  
-                	
-                    bigMemoryLength = actualSize;
-                    bigMemoryFits = true;
-                }
-            } else {
-
-                if (actualSize >= sizeInMemory && actualSize > smallMemoryLength) {
-                	smallMemory.setStart(i - actualSize);
-                	smallMemory.setEnd(smallMemory.getStart() + sizeInMemory - 1);
-                	
-                    smallMemoryFits = true;
-                    smallMemoryLength = actualSize;
-                }
-
-                actualSize = 0;
+            int length = j - i;
+            if (length >= size && length < small) {
+                start = i;
+                small = length;
+                i = j - 1;
             }
         }
 
-        return smallMemoryFits ? smallMemory : bigMemoryFits ? bigMemory : null;
+        if (start != -1) {
+            memory = new MemoryAddress(start, start + size - 1);
+        }
+
+        return size != -1 ? memory : null;
     }
 	
 	private void writeWithWorstFit(Process p) {
@@ -155,6 +145,34 @@ public class MemoryManager {
         return bigMemory > 0 ? memory : null;
     }
 	
+	/*private MemoryAddress worstFitMethod2(int size) {
+        int small = -1;
+        int big = -1;
+
+        MemoryAddress memory = null;
+
+        for (int i = 0; i < this.physicalMemory.length; i++) {
+            int j = i;
+
+            while (j < this.physicalMemory.length && this.physicalMemory[j] == null) {
+                j++;
+            }
+
+            int length = j - i;
+            if (length >= size && length > big) {
+                small = i;
+                big = length;
+                i = j - 1;
+            }
+        }
+
+        if (big != -1) {
+            memory = new MemoryAddress(small, small + size - 1);
+        }
+
+        return memory;
+    } */
+	
 	private void writeWithPagination(Process p) {
 		// TODO Auto-generated method stub		
 	}
@@ -174,6 +192,7 @@ public class MemoryManager {
             printCreate(i, p.getId());
         }
         printFinish(p.getId());
+        this.memoryInUse();
         System.out.println("--------------------------------------------------------------------------\n");
     }
 	
@@ -195,6 +214,22 @@ public class MemoryManager {
 	private void printError(String id, int size) {
         System.out.println("                  (*) ERROR: INSUFFICIENT MEMORY (*)" + "\nPROCESS ID: " + id + ", \nPAGES/SIZE IN MEMORY: " + size);
     }
+	
+	public void memoryInUse() {
+		int memoryInUseCount = 0;
+		
+		for (int i = 0; i < this.physicalMemory.length; i++) {
+			if (this.physicalMemory[i] != null) {
+				memoryInUseCount++;
+			}
+		}
+		
+		int memoryPercentage = (memoryInUseCount*100)/this.physicalMemory.length;
+		System.out.println("--------------------------------------------------------------------------");
+        System.out.println("                  (%) MEMORY IN USE (%)");
+        System.out.println("MEMORY IN USE: " + memoryPercentage + "% ");
+      
+	}
 	
 	
 }

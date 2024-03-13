@@ -14,17 +14,17 @@ public class OperatingSystem {
 	public static Process systemCall(SystemCallType type, Process p) {
 		if(type.equals(SystemCallType.CREATE_PROCESS)) {
 			if(mm == null) {
-				mm = new MemoryManager(Strategy.BEST_FIT);
+				mm = new MemoryManager(Strategy.FIRST_FIT);
 			}
 			if(cm == null) {
 				cm = new CpuManager();
 			}
-			return new Process();
+			return p;
 			
 		} else if(type.equals(SystemCallType.WRITE_PROCESS)) {
 			mm.write(p);
 			
-		} else if(type.equals(SystemCallType.CLOSE_PROCESS)) {
+		} else if(type.equals(SystemCallType.CLOSE_PROCESS) && p.getMa() != null) {
 			mm.delete(p);
 			
 		}

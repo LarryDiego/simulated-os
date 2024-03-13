@@ -18,13 +18,14 @@ public class Process {
 	//private List<Process> processes;
 	//private int priority;
 	
-	public Process() {
+	public Process(int size) {
 		this.id = UUID.randomUUID().toString();		
 		Random rand = new Random();
 		//List<Integer> numbers = Arrays.asList(1,2,4,6,10,20,30,50,100);
 		//Test line
-		List<Integer> numbers = Arrays.asList(1,2,4,6,10);
-		this.sizeInMemory = numbers.get(rand.nextInt(numbers.size()));
+		List<Integer> numbers = Arrays.asList(1);
+		//this.sizeInMemory = numbers.get(rand.nextInt(numbers.size()));
+		this.sizeInMemory = size;
 	}
 
 	public String getId() {

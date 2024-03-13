@@ -22,10 +22,4 @@ public class MemoryAddress {
 		this.end = end;
 	}
 	
-	public int size() {
-		return (end - start) + 1;
-	}
-	
-	
-
 }

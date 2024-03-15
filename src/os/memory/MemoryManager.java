@@ -5,7 +5,7 @@ public class MemoryManager {
 	private String[] physicalMemory;
 	private Strategy strategy;
 	//Paginação
-	private String[] logicalMemory;
+	//private String[] logicalMemory;
 	
 	public MemoryManager(Strategy strategy) {
 		this.physicalMemory = new String[128];

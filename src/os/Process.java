@@ -23,7 +23,7 @@ public class Process {
 		Random rand = new Random();
 		//List<Integer> numbers = Arrays.asList(1,2,4,6,10,20,30,50,100);
 		//Test line
-		List<Integer> numbers = Arrays.asList(1);
+		//List<Integer> numbers = Arrays.asList(1);
 		//this.sizeInMemory = numbers.get(rand.nextInt(numbers.size()));
 		this.sizeInMemory = size;
 	}

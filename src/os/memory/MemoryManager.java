@@ -86,19 +86,23 @@ public class MemoryManager {
         int small = this.physicalMemory.length + 1;
 
         MemoryAddress memory = null;
+        
+        int actualSize = 0;
 
         for (int i = 0; i < this.physicalMemory.length; i++) {
             int j = i;
 
             while (j < this.physicalMemory.length && this.physicalMemory[j] == null) {
                 j++;
+                actualSize++;
             }
 
             int length = j - i;
-            if (length >= size && length < small) {
+            if (length >= size && length < small && actualSize < small) {
                 start = i;
                 small = length;
                 i = j - 1;
+                actualSize = 0;
             }
         }
 

@@ -1,33 +1,39 @@
 package os;
 
-import os.cpu.CpuManager;
+import java.util.List;
+
 import os.memory.MemoryManager;
-import os.memory.Strategy;
 import os.scheduler.Scheduler;
+import os.scheduler.strategy.FCFS;
 
 public class OperatingSystem {
-	private static MemoryManager mm;
-	private static CpuManager cm;
-	//Segunda Etapa
-	//private static Scheduler ps;
+	public static MemoryManager memoryManager;
+	public static Scheduler scheduler;
 	
-	public static Process systemCall(SystemCallType type, Process p) {
+	public static SOProcess systemCall(SystemCallType type, int processSize) {
 		if(type.equals(SystemCallType.CREATE_PROCESS)) {
-			if(mm == null) {
-				mm = new MemoryManager(Strategy.FIRST_FIT);
+			if(memoryManager == null) {
+				memoryManager = new MemoryManager();
 			}
-			if(cm == null) {
-				cm = new CpuManager();
+			if(scheduler == null) {
+				scheduler = new FCFS();
 			}
-			return p;
-			
-		} else if(type.equals(SystemCallType.WRITE_PROCESS)) {
-			mm.write(p);
-			
-		} else if(type.equals(SystemCallType.CLOSE_PROCESS) && p.getMa() != null) {
-			mm.delete(p);
-			
 		}
-		return null;
+		return new SOProcess(processSize);
+	}
+	
+	public static List<SubProcess> systemCall(SystemCallType type, SOProcess process) {		
+		 if(type.equals(SystemCallType.WRITE_PROCESS)) {
+			memoryManager.write(process);
+			scheduler.execute(process);
+			
+		} else if(type.equals(SystemCallType.CLOSE_PROCESS)) {
+			scheduler.finish(process);
+			memoryManager.delete(process);
+			
+		} else if(type.equals(SystemCallType.READ_PROCESS)) {
+			memoryManager.read(process);
+		}
+		 return null;
 	}
 }

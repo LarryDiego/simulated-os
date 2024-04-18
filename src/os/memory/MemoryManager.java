@@ -82,8 +82,8 @@ public class MemoryManager {
                 indexPage++;
             }
         }
-
-        printMemory();
+        printInitial(process.getSize(), process.getId());
+        printMemory(process.getId());
     }
 
     public SOProcess delete(SOProcess process) {
@@ -101,19 +101,45 @@ public class MemoryManager {
             logicMemory.remove(sb);
         }
 
-        printMemory();
+        printMemory(process.getId());
 
         return process;
     }
 
-    private void printMemory() {
-        System.out.println("----------------------------------------------------------------------");
-        System.out.println("teste de memoria %");
+    private void printMemory(String processId) {
+        System.out.println("----------------------------------------------------------------------------------");
         for (SubProcess[] page : physicMemory) {
+        	System.out.print("PAGE " + physicMemory.indexOf(page) + ": ");
             for (SubProcess subProcess : page) {
-                System.out.print("{ id: " + (subProcess != null ? subProcess.getId() : null) + " } ");
+                System.out.print("| id: " + (subProcess != null ? subProcess.getId() : null) + " | ");
             }
             System.out.println();
         }
+        printFinish(processId);
+        memoryInUse();
+    }
+    
+    public void memoryInUse() {
+    	List<Integer> emptyFrames = findEmptyPages();
+    	int memoryInUseCount = 64 - emptyFrames.size();
+				
+		int memoryPercentage = (memoryInUseCount*100)/64;
+		System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("                  		(%) MEMORY IN USE (%)");
+        System.out.println("				MEMORY IN USE: " + memoryPercentage + "% ");
+      
+	}
+    
+    private void printInitial(int sizeInMemory, String id) {
+    	double resultado = (double) sizeInMemory / 4;
+    	int pagesNeeded = (int) Math.ceil(resultado);
+        System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("                  	(+) WRITING THE PROCESS IN MEMORY (+)");
+        System.out.print("PROCESS ID: " + id + "\nSIZE IN MEMORY: " + sizeInMemory + "\nPAGES NEEDED: " + pagesNeeded + "\n");
+    }
+    
+    private void printFinish(String id) {
+    	System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("PROCESS ID: " + id + " WRITED WITH SUCCESS!");
     }
 }

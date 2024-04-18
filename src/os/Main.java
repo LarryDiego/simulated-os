@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
     	
     	//FCFS
-    	/*    	 
+    		 
         SOProcess process1 = OperatingSystem.systemCall(130, 1, 10);
         OperatingSystem.systemCall(SystemCallType.WRITE, process1);
 
@@ -17,8 +17,10 @@ public class Main {
         //SOProcess process3 = OperatingSystem.systemCall(30, 3, 15);
         //OperatingSystem.systemCall(SystemCallType.WRITE, process3);
         
-        System.out.println("FCFS");
-        */
+        System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("		SCHEDULER TYPE: FCFS (FIRST COME, FIRST SERVED)");
+        System.out.println("----------------------------------------------------------------------------------");
+        
     	
     	//PRIORITY
     	/*
@@ -34,7 +36,9 @@ public class Main {
         //SOProcess process3 = OperatingSystem.systemCall(30, 3, 15);
         //OperatingSystem.systemCall(SystemCallType.WRITE, process3);
         
-        System.out.println("PRIORITY");
+        System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("				SCHEDULER TYPE: PRIORITY");
+        System.out.println("----------------------------------------------------------------------------------");
         */
     	
     	//SJF
@@ -51,7 +55,9 @@ public class Main {
         //SOProcess process3 = OperatingSystem.systemCall(30, 3, 15);
         //OperatingSystem.systemCall(SystemCallType.WRITE, process3);
         
-        System.out.println("SJF");
+        System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("				SCHEDULER TYPE: SJF (SHORTEST JOB FIRST)");
+        System.out.println("----------------------------------------------------------------------------------");
         */
     	
     	//LOTTERY
@@ -68,7 +74,9 @@ public class Main {
         //SOProcess process3 = OperatingSystem.systemCall(30, 3, 15);
         //OperatingSystem.systemCall(SystemCallType.WRITE, process3);
         
-        System.out.println("LOTTERY");
+        System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("				SCHEDULER TYPE: LOTTERY");
+        System.out.println("----------------------------------------------------------------------------------");
         */
     	
     	//ROUND ROBIN
@@ -85,7 +93,9 @@ public class Main {
         //SOProcess process4 = OperatingSystem.systemCall(58, 3, 15);
         //OperatingSystem.systemCall(SystemCallType.WRITE, process4);
         
-        System.out.println("ROUND ROBIN");
+        System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("				SCHEDULER TYPE: ROUND ROBIN");
+        System.out.println("----------------------------------------------------------------------------------");
         */
         
     }

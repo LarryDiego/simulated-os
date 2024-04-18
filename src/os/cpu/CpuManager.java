@@ -9,6 +9,8 @@ public class CpuManager {
     public static int NUMBER_OF_INSTRUCTIONS_BY_CLOCK = 7;
     public static int NUMBER_OF_CORES = 4;
     private Scheduler scheduler;
+    
+    
 
     public CpuManager(Scheduler scheduler) {
         this.cores = new Core[CpuManager.NUMBER_OF_CORES];
@@ -43,21 +45,35 @@ public class CpuManager {
                     core.setSubProcess(data);
                     core.run();
                     count++;
-                    if (this.scheduler != null && count == 4) {
-                    	if (this.scheduler.getQuantumTable() != null) {
-                    		
-                    		if (this.scheduler.getQuantumTable().get(data.getProcess().getId()) != 0) {        			
-                    			System.out.println(this.scheduler.getQuantumTable().get(data.getProcess().getId()));
-                    		}
-                    	}
-                	}
+//                    if (this.scheduler != null && count == 4) {
+//                    	if (this.scheduler.getQuantumTable() != null) {
+//                    		
+//                    		if (this.scheduler.getQuantumTable().get(data.getProcess().getId()) != 0) {    			
+//                    			System.out.println(this.scheduler.getQuantumTable().get(data.getProcess().getId()));
+//                    		}
+//                    	}
+//                	}
                 }
             }
         }
 
         if (data != null) {
+        	int quantumValue = 1;
+        	if (this.scheduler.getQuantumTable() != null) {        		
+        		quantumValue = this.scheduler.getQuantumTable().get(data.getProcess().getId());
+        	}
         	
-            System.out.println("------------------------------------------");
+        	System.out.println("----------------------------------------------------------------------------------");
+        	System.out.println("				CLOCK: " + CLOCK + " MS");
+        	if (quantumValue == 0) {
+        		System.out.println("				QUANTUM: 3000 (LIMITE REACHED)");
+        		System.out.println("		CHANGING PROCESS - CATCHING THE NEXT IN QUEUE");
+        	} else if (quantumValue == 1) {
+        		System.out.print("");
+        	} else {
+        		System.out.println("				QUANTUM: " + quantumValue);
+        	}
+        	System.out.println("----------------------------------------------------------------------------------");
+        	}
         }
     }
-}

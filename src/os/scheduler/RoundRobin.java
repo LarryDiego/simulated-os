@@ -83,7 +83,7 @@ public class RoundRobin extends Scheduler {
     			Integer value = this.graphicQuantum.get(element.getProcess().getId());
     			
     			if (!(CpuManager.CLOCK >= this.quantum) && value != null && value >= this.quantum) {
-    				System.out.println(value);
+//    				System.out.println(value + "testando");
     				rotate(element.getProcess().getId(), this.countExecutedSubProcess);
     			}
     			

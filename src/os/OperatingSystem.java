@@ -26,7 +26,9 @@ public class OperatingSystem {
                 memoryManager.write(process);
                 scheduler.addProcess(process);
             } else {
-                System.out.println("Page fault");
+            	System.out.println("----------------------------------------------------------------------------------");
+                System.out.println("		(*) ERROR: PAGE FAULT / INSUFFICIENT MEMORY (*)");
+                System.out.println("----------------------------------------------------------------------------------");
             }
         }
 

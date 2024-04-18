@@ -33,15 +33,16 @@ public class SOProcess {
 
     private void insertSubProcess() {
         for (int i = 0; i < this.size; i++) {
-            this.subProcess.add(this.id + " - Sp" + i);
+            this.subProcess.add(this.id + " - SP " + i);
         }
     }
 
     public void checkSubProcessConclusions() {
         if (this.instructionsExecuted == this.instructions) {
-            System.out.println("--------------------------------------------------------------");
-            System.out.println("Process " + this.id + " finalized");
-            System.out.println("--------------------------------------------------------------");
+        	System.out.println("----------------------------------------------------------------------------------");
+            System.out.println("PROCESS ID: " + this.id + " HAS BEEN FULLY EXECUTED AND REMOVED FROM THE QUEUE");
+            System.out.println("A NEW PROCESS WILL BE EXECUTED (IF THERE IS SOMEONE IN THE QUEUE)");
+            System.out.println("----------------------------------------------------------------------------------");
         }
     }
 
